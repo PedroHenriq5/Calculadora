@@ -1,5 +1,6 @@
 function MathCalculation() {
   this.display = document.querySelector(".visor");
+  const operations = ["+", "-", "/", "*"];
 
   this.inicia = () => {
     this.capturaCliques();
@@ -52,20 +53,26 @@ function MathCalculation() {
     this.display.innerHTML = "";
   };
 
+  
   this.addNumDisplay = (el) => {
+    const lastOperation = this.display.innerHTML.slice(-1);
     if (this.display.innerHTML === "" && el.classList.contains("operation")) {
       alert("Primeiro informe um número");
       return;
     }
-    const lastOperation = this.display.innerHTML.slice(-1);
-    const operations = ["+", "-", "/", "*"];
 
     if (operations.includes(lastOperation) && el.classList.contains("operation")) {
-      alert("Não é permitido dois operadores seguidos");
-      return;
+      this.removeOperation();
     }
-
+    
     this.display.innerHTML += el.innerText;
+  };
+  
+  this.removeOperation = () => {
+    const displayHTML = this.display.innerHTML;
+    const cleanHTML = displayHTML.slice(0, -1);
+
+    this.display.innerHTML = cleanHTML;
   };
 }
 
